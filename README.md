@@ -71,6 +71,10 @@ Vous pouvez modifier les informations sur le "port, ip, etc.." ici
 
 **Les chemin fourni ici sont rédigé en fonction de ma plateforme de développement il sera nécessaire d'adapter selon votre configuration**
 
+### UPDATE
+
+02/07/2017 : Ajout d'un crontab toutes les minutes pour redémarrer aprés un crash
+
 ### SOURCE
 
 Cette image docker a été réalisé avec l'installateur automatique de [https://gameservermanagers.com/](https://gameservermanagers.com/)
