@@ -7,7 +7,7 @@ LABEL maintainer="pixel@rageclic.fr" \
 RUN apt-get update \
     && dpkg --add-architecture i386 \
     && apt-get update \
-    && apt-get install -y mailutils postfix curl wget file bzip2 gzip unzip binutils bsdmainutils python util-linux ca-certificates tmux lib32gcc1 libstdc++6 libstdc++6:i386 telnet expect sudo cron
+    && apt-get install -y mailutils postfix curl wget file bzip2 gzip unzip bsdmainutils python util-linux ca-certificates binutils bc tmux lib32gcc1 libstdc++6 libstdc++6:i386 lib32z1 telnet expect sudo cron locales
 
 COPY ./*.* /
 
@@ -18,10 +18,14 @@ RUN chmod 755 /start.sh \
     && echo "* * * * * sdtdserver /home/sdtdserver/sdtdserver monitor > /dev/null 2>&1" >> /etc/cron.d/sdtdserver-restart \
     && chmod 0644 /etc/cron.d/sdtdserver-restart \
     && cron
+    
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    locale-gen
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8   
 
 VOLUME /home/sdtdserver
-
-USER sdtdserver
 
 WORKDIR /home/sdtdserver
 

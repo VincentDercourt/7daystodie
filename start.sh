@@ -5,22 +5,11 @@ if [ ! -f "sdtdserver" ]; then
     chmod +x sdtdserver
 fi
 if [ ! -d "serverfiles" ]; then
-    yes Y | ./sdtdserver install
+    sudo -u sdtdserver yes Y | ./sdtdserver install
 fi
 
-yes Y | ./sdtdserver start
+sudo -u sdtdserver yes Y | ./sdtdserver start
 
-expect <<- DONE
-  set timeout -1
-  
-  spawn sudo cron
-  match_max 100000
-  
-  expect "*?password for sdtdserver:*"
-  send -- "sdtdserver\r"
-  send -- "\r"
-  expect eof
-  
-DONE
+cron
 
 /bin/bash
